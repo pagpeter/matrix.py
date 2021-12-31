@@ -1,5 +1,7 @@
 __pycache__/
 *.json
+*.yaml
+*.yml
 *.py[cod]
 *.log
 *.egg-info
@@ -7,6 +9,10 @@ venv
 .venv
 docs/_build
 docs/crowdin.py
+source/
+build/
+make.bat
+Makefile
 *.buildinfo
 *.mp3
 *.m4a
@@ -15,3 +21,5 @@ docs/crowdin.py
 *.jpg
 *.flac
 *.mo
+conf.py
+testing.py

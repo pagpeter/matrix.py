@@ -17,11 +17,12 @@ __version__ = "0.0.1"
 
 
 from typing import Literal, NamedTuple
+from .discord_like_classes import *
 from .exceptions import *
 from .constants import *
-from .classes import *
+# from .classes import *
 from .client import *
-from parsers import *
+from .parsers import *
 from .utils import *
 from .e2ee import *
 

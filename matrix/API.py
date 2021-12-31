@@ -1,6 +1,7 @@
 from .classes import Authentication, Device_Keys_Response, Event, Room_Preset, State, User
 from .parsers import parse_event, parse_room_events, parse_state, parse_device_keys_response
 from .e2ee import Olm
+from .exceptions import *
 from typing import Any, Dict, List, Mapping
 import threading
 import requests
@@ -84,8 +85,9 @@ class Bot():
         headers = {"Content-Type": "application/json"}
 
         if not self.auth and not skip_auth_check:
-            print("[!] Not authenticated")
-            return None
+            # print("[!] Not authenticated")
+            raise NotAuthenticated("Not authenticated")
+            # return None
 
         elif self.auth:
             if self.use_auth_header:
@@ -103,14 +105,16 @@ class Bot():
         try:
             if not r.ok:
                 err = r.json().get('error', f"Status code {r.status_code}")
-                print(f"[!] Error while making request to {endpoint}: {err}")
-                return None
+                raise MatrixError(err)
+                # print(f"[!] Error while making request to {endpoint}: {err}")
+                # return None
 
             return r.json()
         except Exception as e:
-            print(f"[!] Error while parsing response: {e}")
-            print(r.text)
-            return None
+            raise ParsingError(f"Error while parsing response: {e}")
+            # print(f"[!] Error while parsing response: {e}")
+            # print(r.text)
+            # return None
 
     def login(self,
               start_syncing: bool = True,
