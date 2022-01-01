@@ -31,10 +31,12 @@ class Bot():
                  device_id: str = "") -> None:
         """
         Initialize the client.
+
         :param homeserver: The homeserver url.
         :param username: The username.
         :param password: The password.
         :param sync_delay: The sync delay.
+
         """
         self.base = homeserver
         self.user = username
@@ -66,6 +68,7 @@ class Bot():
                       headers: Dict[str, str] = {}) -> dict:
         """
         Make a request to the homeserver.
+
         :param method: HTTP method
         :param endpoint: Endpoint
         :param data: JSON data to send
@@ -121,6 +124,7 @@ class Bot():
               device_id: str = "") -> Authentication:
         """
         Login to the homeserver.
+
         :param start_syncing: Start the sync thread.
         :param device_id: The device id.
         :return: The authentication object.
@@ -146,6 +150,7 @@ class Bot():
     def register(self, start_syncing: bool = True) -> Authentication:
         """
         Register a new user.
+
         :param start_syncing: Start the sync thread.
         :return: The authentication object.
         """
@@ -195,6 +200,7 @@ class Bot():
                     power_level_content_override: Dict = {}) -> str:
         """
         Create a new room.
+
         :param alias: Room alias
         :param preset: Room preset from classes.Room_Preset.
         :param topic: Room topic
@@ -230,6 +236,7 @@ class Bot():
                      power_level_content_override: Dict = {}) -> str:
         """
         Create a new space. Wrapper for create_room.
+
         :param alias: Alias for the room.
         :param preset: Room preset from classes.Room_Preset.
         :param topic: Room topic.
@@ -271,6 +278,7 @@ class Bot():
                         txn_id: int = None) -> dict:
         """
         Send arbitrary event to a room
+
         :param room_id: The room id to send the event to.
         :param event_type: The event type.
         :param content: The event content.
@@ -293,6 +301,7 @@ class Bot():
                      info: Dict = {}) -> Event:
         """
         Send a message to a room.
+
         :param room_id: Room ID
         :param message: Message text
         :param msgtype: Message type
@@ -310,11 +319,12 @@ class Bot():
         if info: data["info"] = info
 
         res = self.send_room_event(room_id, "m.room.message", data)
-        return Event(res["event_id"])
+        return Event(res["event_id"], timestamp=time())
 
     def leave_room(self, room_id: str) -> dict:
         """
         Leave a room.
+
         :param room_id: Room ID
         """
         return self._make_request("POST", f"/rooms/{room_id}/leave", {})
@@ -322,6 +332,7 @@ class Bot():
     def sync(self, since: str = "", set_as_new: bool = False) -> State:
         """
         Sync the client state.
+
         :param since: The token to sync from.
         :param set_as_new: Set the state as new.
         :return: The new state.
@@ -346,6 +357,7 @@ class Bot():
     def get_room_id(self, room_alias: str) -> str:
         """
         Get the room id from a room alias.
+
         :param room_alias: The room alias.
         :return: The room id.
         """
@@ -356,6 +368,7 @@ class Bot():
     def get_room_members(self, room_id: str) -> List[User]:
         """
         Get the members of a room.
+
         :param room_id: The room id.
         :return: List of users.
         """
@@ -370,6 +383,7 @@ class Bot():
     def whoami(self) -> User:
         """
         Get the user info.
+
         :return: The user object.
         """
         res = self._make_request("GET", "/account/whoami")
@@ -379,6 +393,7 @@ class Bot():
     def join_room(self, room_id: str, reason: str = "") -> Event:
         """
         Join a room or space.
+
         :param room_id: The room id.
         :param reason: The reason for joining.
         :return: The event object.
@@ -392,6 +407,7 @@ class Bot():
     def forget_room(self, room_id: str) -> Event:
         """
         Forget a room.
+
         :param room_id: The room id to forget.
         :return: The event object.
         """
@@ -403,6 +419,7 @@ class Bot():
     def leave_room(self, room_id: str) -> Event:
         """
         Leave a room.
+
         :param room_id: The room id to leave.
         :return: The event object.
         """
@@ -423,6 +440,7 @@ class Bot():
             filter: str = "") -> List[Event]:
         """
         Get the events of a room.
+
         :param room_id: The room id.
         :param direction: The direction of the events.
         :param limit: How many events to get.
@@ -459,6 +477,7 @@ class Bot():
     def mark_as_read(self, room_id: str, event_id: str) -> dict:
         """
         Mark an event as read.
+
         :param room_id: The room id.
         :param event_id: The event id.
         :return: The response from the homeserver.
@@ -539,6 +558,7 @@ class Bot():
                           auto_join: bool = False) -> Event:
         """
         Add a room to a space.
+
         :param space_id: The space id
         :param room_id: The room id
         :param via: List of servers (["matrix.org", "matrix.example.org"])
@@ -560,6 +580,14 @@ class Bot():
                      content: Any,
                      content_type: str,
                      filename: str = None) -> Dict:
+        """
+        Upload media to the homeserver.
+
+        :param content: The content to upload.
+        :param content_type: The content type
+        :param filename: The filename
+        :return: The response from the homeserver.
+        """
 
         query_params = {}
         if filename: query_params['filename'] = filename

@@ -33,7 +33,13 @@ class Encrypted_Event_Content:
 
 
 # from https://spec.matrix.org/v1.1/appendices/#signing-json
-def canonical_json(value):
+def canonical_json(value: dict) -> str:
+    """
+    Canonicalize a JSON object.
+
+    :param value: The JSON object.
+    :return: The canonicalized JSON object.
+    """
     return json.dumps(
         value,
         # Encode code-points outside of ASCII as UTF-8 rather than \u escapes
@@ -79,29 +85,59 @@ def check_device_key_signature(data: dict) -> bool:
 
 
 def get_encrypted_content(sender):
-    # TODO: implement
-    pass
+    raise NotImplementedError
 
 
 class Olm():
     def __init__(self):
+        """Initialize the Olm class."""
         self.active = False
         self.account = Account
 
-    def create(self):
+    def create(self) -> Account:
+        """
+        Create a new Olm account.
+        
+        :return: The new Olm account.
+        """
         self.account = Account()
         self.active = True
         return self.account
 
-    def load(self, pickle: str, passphrase: str = ""):
+    def load(self, pickle: str, passphrase: str = "") -> Account:
+        """
+        Load an Olm account from a pickle.
+        
+        :param pickle: The pickle to load.
+        :param passphrase: The passphrase to decrypt the pickle.
+        :return: The Olm account.
+        """
         self.account = Account.from_pickle(pickle, passphrase)
         self.active = True
+        return self.account
 
     def get_identity_keys(self):
+        """
+        Get the identity keys.
+        
+        :return: The identity keys.
+        """
+
+
         return self.account.identity_keys
 
     def get_one_time_keys(self):
+        """
+        Get the one time keys.
+        
+        :return: The one time keys.
+        """
         return self.account.one_time_keys
 
     def generate_one_time_keys(self, count: int):
+        """
+        Generate one time keys.
+        
+        :param count: The number of keys to generate.
+        """
         self.account.generate_one_time_keys(count)

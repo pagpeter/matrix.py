@@ -2,6 +2,7 @@ from .API import Bot
 from time import sleep, time
 from .discord_like_classes import *
 from threading import Thread
+import asyncio
 
 
 class Client:
@@ -31,6 +32,7 @@ class Client:
                                 topic=None,
                                 last_message=room.timeline[-1],
                                 last_message_id=room.timeline[-1].event_id,
+                                _bot=self.client,
                             )
 
                             msg = Message(
@@ -41,8 +43,9 @@ class Client:
                                 room=r,
                                 created_at=m.timestamp,
                                 edited_at=None,
+                                _bot=self.client,
                             )
-                            self.on_message(msg)
+                            asyncio.run(self.on_message(msg))
             if initial:
                 print(f"[+] {len(answered_commands)} messages answered so far.")
                 initial = False
@@ -63,8 +66,9 @@ class Client:
                             inviter=invite.invitee,
                             created_at=time(),
                             _invite_state=invite.invite_state,
+                            _bot=self.client,
                         )
-                        self.on_invite(i)
+                        asyncio.run(self.on_invite(i))
             if initial:
                 print(f"[+] {len(handled_invites)} invites handled so far.")
                 initial = False
@@ -73,6 +77,7 @@ class Client:
     def run(self, username: str, password: str, homeserver: str, device_id: str = "") -> None:
         """
         Run client.
+        
         :param username: username of the user
         :param password: password of the user
         :param homeserver: homeserver of the user
@@ -86,5 +91,5 @@ class Client:
         self.client.start_sync()
         Thread(target=self._handle_messages).start()
         Thread(target=self._handle_invites).start()
-        self.on_ready()
+        asyncio.run(self.on_ready())
         self.client.run_forever()

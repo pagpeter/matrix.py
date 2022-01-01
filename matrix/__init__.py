@@ -1,11 +1,13 @@
 """
 Matrix API wrapper.
-~~~~~~~~~~~~~~~~~~~
+===================
+
 
 A basic wrapper for the Matrix API.
 
-:copyright: (c) 2021-present, Peet 
-:license: MIT, see LICENSE for more details.
+Copyright: (c) 2021-present, Peet 
+
+License: MIT, see LICENSE for more details.
 
 """
 

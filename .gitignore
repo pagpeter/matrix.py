@@ -11,8 +11,6 @@ docs/_build
 docs/crowdin.py
 source/
 build/
-make.bat
-Makefile
 *.buildinfo
 *.mp3
 *.m4a
@@ -21,5 +19,4 @@ Makefile
 *.jpg
 *.flac
 *.mo
-conf.py
 testing.py
