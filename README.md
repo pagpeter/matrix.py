@@ -5,6 +5,8 @@ It is still in early beta, so don't expect it to be running smoothly yet.
 
 It aims to be a modern, easy to use, feature-rich and async ready API wrapper for the Matrix system written in Python.
 
+The documentation can be found [here](https://matrixpy.readthedocs.io/en/latest/matrix.html), examples can be found in the `examples` folder.
+
 
 ## Quick Example
 

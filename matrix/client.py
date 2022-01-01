@@ -41,6 +41,7 @@ class Client:
                                 author=m.sender,
                                 id=m.event_id,
                                 room=r,
+                                channel=r,
                                 created_at=m.timestamp,
                                 edited_at=None,
                                 _bot=self.client,
@@ -77,7 +78,7 @@ class Client:
     def run(self, username: str, password: str, homeserver: str, device_id: str = "") -> None:
         """
         Run client.
-        
+
         :param username: username of the user
         :param password: password of the user
         :param homeserver: homeserver of the user
