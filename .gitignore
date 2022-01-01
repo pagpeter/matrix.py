@@ -1,7 +1,5 @@
 __pycache__/
 *.json
-*.yaml
-*.yml
 *.py[cod]
 *.log
 *.egg-info
