@@ -19,6 +19,9 @@ The package can be installed from pypi, via
 $ pip install matrix-chat
 ```
 
+You need to have `gcc` and the `libolm` package installed. 
+
+
 ## Quick Example
 
 ```py
