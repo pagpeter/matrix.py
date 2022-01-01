@@ -1,2 +1,2 @@
 requests 
-pyolm
+python-olm
