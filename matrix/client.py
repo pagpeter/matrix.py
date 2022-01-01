@@ -6,11 +6,17 @@ import asyncio
 
 
 class Client:
-    def __init__(self):
+    def __init__(self, silent=True):
         """Initialize client."""
         self.loop = None
         self.client = Bot
         self.is_running = False
+        self.silent = silent
+
+    def _print(self, msg: str) -> None:
+        """Print message if not silent."""
+        if not self.silent:
+            print(msg)
 
     def _handle_messages(self) -> None:
         """Handle messages."""
@@ -48,7 +54,7 @@ class Client:
                             )
                             asyncio.run(self.on_message(msg))
             if initial:
-                print(f"[+] {len(answered_commands)} messages answered so far.")
+                self._print(f"[+] {len(answered_commands)} messages answered so far.")
                 initial = False
             initial = False
 
@@ -71,7 +77,7 @@ class Client:
                         )
                         asyncio.run(self.on_invite(i))
             if initial:
-                print(f"[+] {len(handled_invites)} invites handled so far.")
+                self._print(f"[+] {len(handled_invites)} invites handled so far.")
                 initial = False
 
 

@@ -7,6 +7,7 @@ venv
 .venv
 docs/_build
 docs/crowdin.py
+dist/
 source/
 build/
 *.buildinfo

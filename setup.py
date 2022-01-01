@@ -1,9 +1,12 @@
 from setuptools import setup
 import re
 
-requirements = []
-with open('requirements.txt') as f:
-  requirements = f.read().splitlines()
+requirements = [
+  "requests",
+  "python-olm"
+]
+# with open('requirements.txt') as f:
+#   requirements = f.read().splitlines()
 
 version = ''
 with open('matrix/__init__.py') as f:
@@ -49,11 +52,13 @@ packages = [
     'matrix',
 ]
 
-setup(name='matrix.py',
+setup(name='matrix-chat',
       author='Peet',
       url='https://github.com/wwhtrbbtt/matrix.py',
+      author_email="matrix@peet.ws",
+
       project_urls={
-        "Documentation": "https://github.com/wwhtrbbtt/matrix.py",
+        "Documentation": "https://matrixpy.readthedocs.io/en/latest/",
         "Issue tracker": "https://github.com/wwhtrbbtt/matrix.py/issues",
       },
       version=version,
@@ -61,13 +66,13 @@ setup(name='matrix.py',
       license='MIT',
       description='A Python wrapper for the Matrix API',
       long_description=readme,
-      long_description_content_type="text/x-md",
+      long_description_content_type='text/markdown',
       include_package_data=True,
       install_requires=requirements,
     #   extras_require=extras_require,
       python_requires='>=3.8.0',
       classifiers=[
-        'Development Status :: 0 - Development',
+        'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
         'Natural Language :: English',
